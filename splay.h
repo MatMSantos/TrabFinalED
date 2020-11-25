@@ -24,11 +24,7 @@ PtNodo* RotEsq(PtNodo* t);
 PtNodo* RotDir(PtNodo* t);
 
 // Insere um nodo em uma Splay
-PtNodo* Splay(PtNodo* t, int key);
-// Insere um nodo em uma Splay
-// COMENTÁRIO: Função inútil, talvez eu esteja enganado.
-// 	Ela só retorna o que for repassado pra função Splay.
-PtNodo* Insere(int key, PtNodo* t);
+PtNodo* insereSplay(PtNodo* t, int key);
 // Consulta um valor int em uma árvore Splay
 PtNodo* ConsultaSplay(PtNodo* t, int key);
 // Consulta um valor int em uma árvore Splay

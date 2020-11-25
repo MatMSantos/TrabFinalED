@@ -30,7 +30,7 @@ PtNodo* RotDir(PtNodo* t)
 }
 
 // Insere um nodo em uma Splay
-PtNodo* Splay(PtNodo* t, int key)
+PtNodo* insereSplay(PtNodo* t, int key)
 {
     if (t == NULL)
         return Novo(key, NULL, NULL);
@@ -40,12 +40,12 @@ PtNodo* Splay(PtNodo* t, int key)
             return Novo(key, NULL, t);
         if (key < t->esq->key)
         {
-            t->esq->esq = Splay(t->esq->esq, key);
+            t->esq->esq = insereSplay(t->esq->esq, key);
             t = RotDir(t);
         }
         else
         {
-            t->esq->dir = Splay(t->esq->dir, key);
+            t->esq->dir = insereSplay(t->esq->dir, key);
             t->esq = RotEsq(t->esq);
         }
         return RotDir(t);
@@ -56,23 +56,16 @@ PtNodo* Splay(PtNodo* t, int key)
             return Novo(key, t, NULL);
         if (t->dir->key < key)
         {
-            t->dir->dir = Splay(t->dir->dir, key);
+            t->dir->dir = insereSplay(t->dir->dir, key);
             t = RotEsq(t);
         }
         else
         {
-            t->dir->esq = Splay(t->dir->esq, key);
+            t->dir->esq = insereSplay(t->dir->esq, key);
             t->dir = RotDir(t->dir);
         }
         return RotEsq(t);
     }
-}
-// Insere um nodo em uma Splay
-// COMENTÁRIO: Função inútil, talvez eu esteja enganado.
-// 	Ela só retorna o que for repassado pra função Splay.
-PtNodo* Insere(int key, PtNodo* t)
-{
-    return Splay(t,key);
 }
 // Consulta um valor int em uma árvore Splay
 PtNodo* ConsultaSplay(PtNodo* t, int key)
@@ -165,9 +158,9 @@ int main(int argc, char *argv[])
 {
 
     PtNodo* arv = NULL;
-    arv = Insere(arv,30);
-    arv = Insere(10,arv);
-    arv = Insere(20,arv);
+    arv = insereSplay(arv,30);
+    arv = insereSplay(10,arv);
+    arv = insereSplay(20,arv);
     Desenha(arv,0);
     arv =  Consulta(arv, 40);
     Desenha(arv,0);
