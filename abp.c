@@ -1,16 +1,5 @@
 #include "abp.h"
 
-tipoinfo gera_aleatorio(void)
-{
-    int min=0,max=100;
-    tipoinfo num;
-
-
-    num=min + (rand()%(max-min+1));
-
-    return num;
-}
-
 // Insere um nodo em uma ABP
 pNodoA* InsereArvore(pNodoA *a, tipoinfo ch)
 {
