@@ -1,9 +1,14 @@
 #ifndef _RNG_H_
 #define _RNG_H_
 
-#include <math.h>
-
 // Gera um número aleatório
-int gera_aleatorio(void);
+int geraAleatorio(void);
+// Escreve uma certa quantidade de números
+// aleatórios em um arquivo
+int salvaParaArquivo(int numDados);
+// Lê uma certa quantidade de números
+// aleatórios de um arquivo
+int* carregaDeArquivo(int numDados);
+
 
 #endif
