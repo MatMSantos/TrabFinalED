@@ -1,25 +1,26 @@
 #include "abp.h"
+#include "RNG.h"
 
 // Insere um nodo em uma ABP
-pNodoA* InsereArvore(pNodoA *a, tipoinfo ch)
+abp_pNodoA* abp_insere(abp_pNodoA *a, abp_tipoinfo ch)
 {
     if (a == NULL)
     {
-        a =  (pNodoA*) malloc(sizeof(pNodoA));
+        a =  (abp_pNodoA*) malloc(sizeof(abp_pNodoA));
         a->info = ch;
         a->esq = NULL;
         a->dir = NULL;
         return a;
     }
     else if (ch < a->info)
-        a->esq = InsereArvore(a->esq,ch);
+        a->esq = abp_insere(a->esq,ch);
     else if (ch > a->info)
-        a->dir = InsereArvore(a->dir,ch);
+        a->dir = abp_insere(a->dir,ch);
     return a;
 }
 
 // Consulta um valor de tipoinfo em uma ABP
-pNodoA* consultaABP(pNodoA *a, tipoinfo chave)
+abp_pNodoA* abp_consulta(abp_pNodoA *a, abp_tipoinfo chave)
 {
 
     while (a!=NULL)
@@ -36,13 +37,13 @@ pNodoA* consultaABP(pNodoA *a, tipoinfo chave)
 
 // Imprime os valores dos nodos de uma ABP em um caminhamento Pré-Fixado
 // à esquerda
-void preFixadoE(pNodoA *a)
+void abp_preFixadoE(abp_pNodoA *a)
 {
     if (a!= NULL)
     {
         printf("%d - ",a->info);
-        preFixadoE(a->esq);
-        preFixadoE(a->dir);
+        abp_preFixadoE(a->esq);
+        abp_preFixadoE(a->dir);
     }
 }
 
@@ -54,27 +55,27 @@ void preFixadoE(pNodoA *a)
 
 int main()
 {
-    pNodoA *arv1 = NULL, *arv2 = NULL,*result;
-    int numero,i,var;
-    tipoinfo num,find;
+    abp_pNodoA *arv1 = NULL, *arv2 = NULL, *result;
+    int numero, i, var;
+    abp_tipoinfo num, find;
 
     srand(time(NULL));
 
     for(i=0; i<30; i++)
     {
-        num=gera_aleatorio();
-        arv1 = InsereArvore(arv1,num);
+        num = gera_aleatorio();
+        arv1 = abp_insere(arv1,num);
     }
     printf("--Central Esquerda --\n");
-    preFixadoE(arv1);
+    abp_preFixadoE(arv1);
     printf("\n\n");
 
-    printf("DIgite um numero:");
-    scanf("%d",&var);
+    printf("Digite um numero:");
+    scanf("%d", &var);
 
-    find=var;
+    find = var;
 
-    result=consultaABP(arv1,find);
+    result = abp_consulta(arv1,find);
 
-    printf("\n%d",result->info);
+    printf("\n%d", result->info);
 }

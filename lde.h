@@ -9,15 +9,15 @@ struct no
 };
 
 // Renomeamos a estrutura para simplificar o código
-typedef struct no No;
+typedef struct no lde_No;
 
 // ======= FUNÇÕES ======= //
 
 // Cria um novo nó a ser inserido em uma LDE
-No* cria_no(void);
+lde_No* lde_criaNo(void);
 // Insere um nó ao fim de uma LDE
-No* insere_fim(No* ptInit, int elem);
+lde_No* lde_insereFim(lde_No* ptInit, int elem);
 // Consulta um valor int em uma LDE
-void busca(No* ptInit, int elem);
+void lde_busca(lde_No* ptInit, int elem);
 // Imprime os valores dos nós de uma LDE a partir de seu início
-void imprimir(No* ptInit);
+void lde_imprimir(lde_No* ptInit);

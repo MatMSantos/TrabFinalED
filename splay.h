@@ -4,31 +4,31 @@
 struct SplayTree
 {
     int key;
-    PtNodo* esq;
-    PtNodo* dir;
+    splay_PtNodo* esq;
+    splay_PtNodo* dir;
 };
 
 // Renomeamos a estrutura para simplificar o código
-typedef struct SplayTree PtNodo;
+typedef struct SplayTree splay_PtNodo;
 
 // ======= FUNÇÕES ======= //
 
 // Cria um novo nodo a ser inserido em uma Splay
-PtNodo* Novo(int key, PtNodo* esq, PtNodo* dir);
+splay_PtNodo* splay_novo(int key, splay_PtNodo* esq, splay_PtNodo* dir);
 
 // Funções para movimento dos nodos dentro de uma Splay:
 //
 // Rotação de um nodo à esquerda
-PtNodo* RotEsq(PtNodo* t);
+splay_PtNodo* splay_rotEsq(splay_PtNodo* t);
 // Rotação de um nodo à direita
-PtNodo* RotDir(PtNodo* t);
+splay_PtNodo* splay_rotDir(splay_PtNodo* t);
 
 // Insere um nodo em uma Splay
-PtNodo* insereSplay(PtNodo* t, int key);
+splay_PtNodo* splay_insere(splay_PtNodo* t, int key);
+
+// Consulta um valor int em uma árvore Splay (recursão)
+splay_PtNodo* splay_consultaR(splay_PtNodo* t, int key);
 // Consulta um valor int em uma árvore Splay
-PtNodo* ConsultaSplay(PtNodo* t, int key);
-// Consulta um valor int em uma árvore Splay
-// 	+ captura a exceção no caso de árvore vazia
-PtNodo* Consulta(PtNodo* t, int key);
+splay_PtNodo* splay_consulta(splay_PtNodo* t, int key);
 // Imprime os valores dos nodos de uma árvore Splay
-void Desenha(PtNodo* t, int nivel);
+void splay_desenha(splay_PtNodo* t, int nivel);
