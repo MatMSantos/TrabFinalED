@@ -1,3 +1,6 @@
+#ifndef _ABP_H_
+#define _ABP_H_
+
 #include <stdio.h>
 
 // Definimos o tipo de informação contida nos nodos
@@ -23,3 +26,5 @@ abp_pNodoA* abp_consulta(abp_pNodoA *a, abp_tipoinfo chave);
 // Imprime os valores dos nodos de uma ABP em um caminhamento Pré-Fixado
 // à esquerda
 void abp_preFixadoE(abp_pNodoA *a);
+
+#endif

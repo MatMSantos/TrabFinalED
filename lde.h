@@ -1,3 +1,6 @@
+#ifndef _LDE_H_
+#define _LDE_H_
+
 #include <stdio.h>
 
 // Definimos um nó
@@ -21,3 +24,5 @@ lde_No* lde_insereFim(lde_No* ptInit, int elem);
 void lde_busca(lde_No* ptInit, int elem);
 // Imprime os valores dos nós de uma LDE a partir de seu início
 void lde_imprimir(lde_No* ptInit);
+
+#endif

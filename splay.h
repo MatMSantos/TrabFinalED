@@ -1,3 +1,6 @@
+#ifndef _SPLAY_H_
+#define _SPLAY_H
+
 #include <stdio.h>
 
 // Definimos a estrutura de uma árvore Splay
@@ -32,3 +35,5 @@ splay_PtNodo* splay_consultaR(splay_PtNodo* t, int key);
 splay_PtNodo* splay_consulta(splay_PtNodo* t, int key);
 // Imprime os valores dos nodos de uma árvore Splay
 void splay_desenha(splay_PtNodo* t, int nivel);
+
+#endif
