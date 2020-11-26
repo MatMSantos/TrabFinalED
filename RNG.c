@@ -15,6 +15,9 @@ int gera_aleatorio(void)
 
 // Escreve uma certa quantidade de números
 // aleatórios em um arquivo
+//
+// OBS: Esta função REESCREVE em cima de arquivos!
+//
 int salvaParaArquivo(int numDados)
 {
 	FILE* arquivoRNG;
@@ -30,7 +33,8 @@ int salvaParaArquivo(int numDados)
 
 	if(arquivoRNG == NULL)
 	{
-		printf("ERRO na criação do arquivo!");
+		printf("\nERRO na criação do arquivo! Arquivo não inicializado.\n");
+		return -1;
 	}
 	else
 	{
@@ -40,7 +44,7 @@ int salvaParaArquivo(int numDados)
 			
 			if( fwrite(&num, sizeof(int), 1, arquivoRNG) == 0)
 			{
-				printf("Não foi possível escrever o elemento %d no arquivo.", i+1);
+				printf("\nNão foi possível escrever o elemento %d no arquivo.\n", i+1);
 			}
 			else qtdeEscrita++;
 		}
@@ -50,9 +54,15 @@ int salvaParaArquivo(int numDados)
 		// Se escrevemos a quantidade de dados correta no arquivo, retornamos 1.
 		// Se não, retornamos 0.
 		if(qtdeEscrita == numDados)
+		{
+			printf("\n%d dados salvos em %d.rand!\n", numDados, numDados);
 			return 1;
+		}
 		else
+		{
+			printf("\nArquivo foi criado mas %d de %d elementos não foram escritos.\n", (numDados - qtdeEscrita), numDados);
 			return 0;
+		}
 	}
 }
 
@@ -65,6 +75,7 @@ int* carregaDeArquivo(int numDados)
 	
 	int* dados = malloc(sizeof(int) * numDados);
 	int qtdeLida;
+	char continuar;
 	
 	sprintf(nome, "%d", numDados);
 	strcat(nome, ".rand");
@@ -72,8 +83,9 @@ int* carregaDeArquivo(int numDados)
 	
 	if(arquivoRNG == NULL)
 	{
-		printf("ERRO na leitura do arquivo!");
+		printf("\nERRO na leitura do arquivo! Arquivo não inicializado.\n");
 		free(dados);
+		return NULL;
 	}
 	else
 	{
@@ -84,14 +96,36 @@ int* carregaDeArquivo(int numDados)
 		// Se lemos a quantidade de dados correta no arquivo, retornamos um array.
 		// Se não, retornamos ponteiro NULL.
 		if(qtdeLida == numDados)
+		{
+			printf("\n%d dados lidos de %d.rand!\n", numDados, numDados);
 			return dados;
+		}
 		else
-			free(dados);
-			return NULL;
+		{
+			printf("\nArquivo foi criado mas %d de %d elementos não foram lidos.\n", (numDados - qtdeLida), numDados);
+			printf("Continuar mesmo assim? [s/n] ");
+			
+			do
+			{
+				scanf("%c", &continuar);
+			} while (continuar != 's' && continuar != 'n' && continuar != 'S' && continuar != 'N');
+			
+			if (continuar == 's' || continuar == 'S')
+			{
+				return dados;
+			}
+			else
+			{
+				free(dados);
+				return NULL;
+			}
+		}
 	}	
 }
 
 // Para testes
+/*
+
 int main()
 {
 	int* resultados;
@@ -118,3 +152,5 @@ int main()
 	free(resultados);	
 	return 0;
 }
+
+*/

@@ -10,5 +10,4 @@ int salvaParaArquivo(int numDados);
 // aleatórios de um arquivo
 int* carregaDeArquivo(int numDados);
 
-
 #endif
