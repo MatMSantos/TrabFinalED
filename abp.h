@@ -2,6 +2,8 @@
 #define _ABP_H_
 
 #include <stdio.h>
+#include <stdlib.h>
+
 
 // Definimos o tipo de informação contida nos nodos
 typedef int abp_tipoinfo;
