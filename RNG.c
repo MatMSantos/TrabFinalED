@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
+
+#define SEQ  1
+#define RAND 0
 
 /*
 // Função necessária para qsort() (da biblioteca stdlib.h)
@@ -29,7 +33,7 @@ int gera_aleatorioSeq(void)
 	static int min = 1;
 	static int delta = 2;
 	int num;
-	
+
 	num = min + ( rand() % (delta) );
 	min = num;
 	return num;
@@ -44,18 +48,18 @@ int salvaParaArquivo(int numDados, int sorted)
 {
 	FILE* arquivoRNG;
 	char nome[14];
-	
+
 	int i;
 	int num;
 	int qtdeEscrita = 0;
-	
+
 	sprintf(nome, "%d", numDados);
-	
+
 	if(sorted)
 		strcat(nome, ".srand");
 	else
 		strcat(nome, ".rand");
-	
+
 	arquivoRNG = fopen(nome, "wb");
 
 	if(arquivoRNG == NULL)
@@ -65,12 +69,14 @@ int salvaParaArquivo(int numDados, int sorted)
 	}
 	else
 	{
+		srand(time(NULL));
+	
 		if(sorted)
 		{
 			for(i = 0; i < numDados; i++)
 			{
 				num = gera_aleatorioSeq();
-					
+
 				if( fwrite(&num, sizeof(int), 1, arquivoRNG) == 0)
 				{
 					printf("\nNão foi possível escrever o elemento %d no arquivo.\n", i+1);
@@ -83,7 +89,7 @@ int salvaParaArquivo(int numDados, int sorted)
 			for(i = 0; i < numDados; i++)
 			{
 				num = gera_aleatorio();
-					
+
 				if( fwrite(&num, sizeof(int), 1, arquivoRNG) == 0)
 				{
 					printf("\nNão foi possível escrever o elemento %d no arquivo.\n", i+1);
@@ -91,9 +97,9 @@ int salvaParaArquivo(int numDados, int sorted)
 				else qtdeEscrita++;
 			}
 		}
-		
+
 		fclose(arquivoRNG);
-		
+
 		// Se escrevemos a quantidade de dados correta no arquivo, retornamos 1.
 		// Se não, retornamos 0.
 		if(qtdeEscrita == numDados)
@@ -120,20 +126,20 @@ int* carregaDeArquivo(int numDados, int sorted)
 {
 	FILE* arquivoRNG;
 	char nome[14];
-	
+
 	int* dados = malloc(sizeof(int) * numDados);
 	int qtdeLida;
 	char continuar;
-	
+
 	sprintf(nome, "%d", numDados);
-	
+
 	if(sorted)
 		strcat(nome, ".srand");
 	else
 		strcat(nome, ".rand");
-	
+
 	arquivoRNG = fopen(nome, "rb");
-	
+
 	if(arquivoRNG == NULL)
 	{
 		printf("\nERRO na leitura do arquivo! Arquivo não inicializado.\n");
@@ -143,9 +149,9 @@ int* carregaDeArquivo(int numDados, int sorted)
 	else
 	{
 		qtdeLida = fread(dados, sizeof(int), numDados, arquivoRNG);
-		
+
 		fclose(arquivoRNG);
-		
+
 		// Se lemos a quantidade de dados correta no arquivo, retornamos um array.
 		// Se não, retornamos ponteiro NULL.
 		if(qtdeLida == numDados)
@@ -162,12 +168,12 @@ int* carregaDeArquivo(int numDados, int sorted)
 		{
 			printf("\nArquivo foi carregado mas %d de %d elementos não foram lidos.\n", (numDados - qtdeLida), numDados);
 			printf("Continuar mesmo assim? [s/n] ");
-			
+
 			do
 			{
 				scanf("%c", &continuar);
 			} while (continuar != 's' && continuar != 'n' && continuar != 'S' && continuar != 'N');
-			
+
 			if (continuar == 's' || continuar == 'S')
 			{
 				return dados;
@@ -178,7 +184,7 @@ int* carregaDeArquivo(int numDados, int sorted)
 				return NULL;
 			}
 		}
-	}	
+	}
 }
 
 // Para testes
@@ -188,14 +194,14 @@ int main()
 {
 	int* resultados;
 	int i = 0;
-	
+
 	printf("Teste\n");
-	
+
 	if ( salvaParaArquivo(10) )
 		printf("OK\n");
 	else
 		printf("N OK\n");
-	
+
 	if ( ( resultados = carregaDeArquivo(10) ) != NULL)
 	{
 		for(i = 0; i < 10; i++)
@@ -206,8 +212,8 @@ int main()
 	}
 	else
 		printf("N OK");
-	
-	free(resultados);	
+
+	free(resultados);
 	return 0;
 }
 
