@@ -1,16 +1,15 @@
 #include "lde.h"
 #include "RNG.h"
-#include <time.h>
 
-// Cria um novo nó a ser inserido em uma LDE
+// Cria um novo nó a ser inserido em uma LDEC
 lde_No* lde_criaNo(void)
 {
     lde_No* novo = (lde_No*)malloc(sizeof(lde_No));
     return novo;
 }
 
-// Insere um nó ao fim de uma LDE
-lde_No* lde_insereFim(lde_No* ptInit,int elem)
+// Insere um nó ao fim de uma LDEC
+lde_No* lde_insereFim(lde_No* ptInit, int elem)
 {
     lde_No* ptaux;
 
@@ -19,87 +18,87 @@ lde_No* lde_insereFim(lde_No* ptInit,int elem)
 
     if(ptInit == NULL)//se lista estiver vazia
     {
-        novo_no->prox = NULL;
-        novo_no->ant = NULL;
+        novo_no->prox = novo_no;
+        novo_no->ant = novo_no;
         ptInit = novo_no;
     }
     else //se lista estiver cheia
     {
         ptaux = ptInit;
 
-        while(ptaux->prox != NULL)
+        do
         {
             ptaux = ptaux->prox;
-        }
+        } while(ptaux->prox != ptInit);
 
-        novo_no->prox = NULL;
-        novo_no->ant = ptaux;
-        ptaux->prox = novo_no;
+		// Chegou no final da lista
+		novo_no->prox = ptInit;
+        novo_no->ant  = ptaux;
+        ptaux->prox   = novo_no;
+        ptInit->ant   = novo_no;
     }
 
     return ptInit;
 }
 
-// Consulta um valor int em uma LDE
-void lde_busca(lde_No* ptInit,int elem)
+// Consulta um valor int em uma LDEC
+void lde_busca(lde_No* ptInit, int elem)
 {
-    lde_No *ptaux=ptInit,*ptguarda_init,*ptguarda_fim;
+    lde_No *ptauxInit = ptInit,
+    	   *ptauxFim  = ptInit->ant;
 
-    ptguarda_init=ptInit;
-
-    while(ptInit->num!=elem)
-    {
-        ptInit=ptInit->prox;
+	// A pesquisa é feita do início ao fim e do fim ao início
+	//   para dividir o processo
+	while(1)
+	{
+		if(ptauxInit->num == elem)
+		{
+			printf("\nElem: %d",ptauxInit->num);
+			return;
+		}
+		if(ptauxInit->prox == ptauxFim)
+			break;
+		else
+			ptauxInit = ptauxInit->prox;
+		
+		if(ptauxFim->num == elem)
+		{
+			printf("\nElem: %d",ptauxFim->num);
+			return;
+		}
+		if(ptauxFim->ant == ptauxInit)
+			break;
+		else
+			ptauxFim = ptauxFim->ant;
     }
-
-    ptaux=ptInit;
-
-    do
-    {
-        printf("\nElem:%d",ptaux->num);
-        ptaux=ptaux->prox;
-        if(ptaux->prox==NULL)
-        {
-            ptguarda_fim=ptaux;
-            ptaux->prox=ptguarda_init;
-        }
-    }
-    while(ptaux->num!=ptInit->num);
-
-    printf("\n\n");
-
-    ptaux=ptInit;
-
-    do
-    {
-        printf("\nElem:%d",ptaux->num);
-        ptaux=ptaux->ant;
-        if(ptaux->ant==NULL)
-        {
-            ptaux->ant=ptguarda_fim;
-        }
-    }
-    while(ptaux->num!=ptInit->num);
+    printf("\nElemento não encontrado!\n");
 }
 
-// Imprime os valores dos nós de uma LDE a partir de seu início
+// Imprime os valores dos nós de uma LDEC a partir de seu início
 void lde_imprimir(lde_No* ptInit)
 {
-    lde_No *ptaux=ptInit;
-
-    while(ptaux!=NULL)
+    lde_No* ptaux;
+    if (ptInit == NULL)
+        printf("\n Lista vazia! \n");
+    else
     {
-        printf("%d",ptaux->num);
-        ptaux=ptaux->prox;
-        printf("->");
+        ptaux = ptInit;
+        do{
+            printf("%d-> ",ptaux->num);
+            ptaux=ptaux->prox;
+        } while(ptaux!=ptInit); // Se o valor que usamos para percorrer
+                                // a lista chegar no valor inicial,
+                                // terminamos o loop
     }
 }
 
-// Teste das funções LDE.
+/*
+
+// Teste das funções LDEC.
 // Para isso:
 //
-// >> gcc lde.c -o LDE
-// >> ./LDE
+// >> gcc lde.c -o LDEC
+// >> ./LDEC
 
 int main()
 {
@@ -124,3 +123,4 @@ int main()
     lde_busca(lista,elem);
 
 }
+*/

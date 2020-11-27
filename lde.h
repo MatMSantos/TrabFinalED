@@ -2,6 +2,7 @@
 #define _LDE_H_
 
 #include <stdio.h>
+#include <stdlib.h>
 
 // Definimos um nó
 struct no
