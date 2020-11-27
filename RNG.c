@@ -3,11 +3,16 @@
 #include <string.h>
 #include <stdlib.h>
 
+/*
 // Função necessária para qsort() (da biblioteca stdlib.h)
 int compara (const void * a, const void * b)
 {
    return ( *(int*)a - *(int*)b );
 }
+COMENT.: Uma das alternativas é usar qsort para colocar em ordem os números
+aleatórios criados por gera_aleatorio. No caso, isso consumiria bastante tempo
+da aplicação especialmente pra um volume de dados mais alto.
+*/
 
 // Gera um número aleatório
 int gera_aleatorio(void)
@@ -19,7 +24,7 @@ int gera_aleatorio(void)
     return num;
 }
 
-int gera_aleatorioS(void)
+int gera_aleatorioSeq(void)
 {
 	static int min = 1;
 	static int delta = 2;
@@ -64,7 +69,7 @@ int salvaParaArquivo(int numDados, int sorted)
 		{
 			for(i = 0; i < numDados; i++)
 			{
-				num = gera_aleatorioS();
+				num = gera_aleatorioSeq();
 					
 				if( fwrite(&num, sizeof(int), 1, arquivoRNG) == 0)
 				{
