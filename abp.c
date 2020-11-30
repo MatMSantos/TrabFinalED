@@ -1,22 +1,40 @@
 #include "abp.h"
 #include "RNG.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+// Cria um novo nodo em uma ABP
+abp_pNodoA* abp_novoNodo(abp_tipoinfo ch)
+{
+	abp_pNodoA* novoNodo = (abp_pNodoA*) malloc(sizeof(abp_pNodoA));
+    novoNodo->info = ch;
+ 
+    novoNodo->esq = NULL;
+    novoNodo->dir = NULL;
+ 
+    return novoNodo;
+}
 
 // Insere um nodo em uma ABP
 abp_pNodoA* abp_insere(abp_pNodoA *a, abp_tipoinfo ch)
 {
-    if (a == NULL)
-    {
-        a =  (abp_pNodoA*) malloc(sizeof(abp_pNodoA));
-        a->info = ch;
-        a->esq = NULL;
-        a->dir = NULL;
-        return a;
-    }
-    else if (ch < a->info)
-        a->esq = abp_insere(a->esq,ch);
-    else if (ch > a->info)
-        a->dir = abp_insere(a->dir,ch);
-    return a;
+	abp_pNodoA* novoNodo = abp_novoNodo(ch);
+	
+	abp_pNodoA **busca = &a;
+	while (*busca)
+	{
+		if (novoNodo->info < (*busca)->info)
+		{
+		   busca = &(*busca)->esq;
+		}
+		else
+		{
+		   busca = &(*busca)->dir;
+		}
+	}
+	*busca = novoNodo;
+	novoNodo->esq = novoNodo->dir = NULL;
+	return a;
 }
 
 // Consulta um valor de tipoinfo em uma ABP
