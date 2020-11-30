@@ -2,9 +2,9 @@
 #define _RNG_H_
 
 // Gera um número aleatório
-int geraAleatorio(void);
+int gera_aleatorio(void);
 // Gera números aleatórios em sequência
-int geraAleatorioSeq(void);
+int gera_aleatorioSeq(void);
 // Escreve uma certa quantidade de números
 // aleatórios em um arquivo
 int salvaParaArquivo(int numDados, int sorted);

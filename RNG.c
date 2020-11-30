@@ -7,17 +7,6 @@
 #define SEQ  1
 #define RAND 0
 
-/*
-// Função necessária para qsort() (da biblioteca stdlib.h)
-int compara (const void * a, const void * b)
-{
-   return ( *(int*)a - *(int*)b );
-}
-COMENT.: Uma das alternativas é usar qsort para colocar em ordem os números
-aleatórios criados por gera_aleatorio. No caso, isso consumiria bastante tempo
-da aplicação especialmente pra um volume de dados mais alto.
-*/
-
 // Gera um número aleatório
 int gera_aleatorio(void)
 {

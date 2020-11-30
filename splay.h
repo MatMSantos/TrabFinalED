@@ -1,18 +1,17 @@
 #ifndef _SPLAY_H_
 #define _SPLAY_H
 
-// Renomeamos a estrutura para simplificar o código
-typedef struct SplayTree splay_PtNodo;
-
 // Definimos a estrutura de uma árvore Splay
 struct SplayTree
 {
     int key;
-    splay_PtNodo* pai;
-    splay_PtNodo* esq;
-    splay_PtNodo* dir;
+    struct SplayTree *pai;
+    struct SplayTree *esq;
+    struct SplayTree *dir;
 };
 
+// Renomeamos a estrutura para simplificar o código
+typedef struct SplayTree splay_PtNodo;
 // ======= FUNÇÕES ======= //
 
 // Cria um novo nodo a ser inserido em uma Splay

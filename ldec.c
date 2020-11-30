@@ -2,9 +2,10 @@
 #include "RNG.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 // Cria um novo nó a ser inserido em uma LDEC
-ldecc_No* ldec_criaNo(void)
+ldec_No* ldec_criaNo(void)
 {
     ldec_No* novo = (ldec_No*)malloc(sizeof(ldec_No));
     return novo;
@@ -94,7 +95,6 @@ void ldec_imprimir(ldec_No* ptInit)
     }
 }
 
-/*
 
 // Teste das funções LDEC.
 // Para isso:
@@ -105,12 +105,12 @@ void ldec_imprimir(ldec_No* ptInit)
 int main()
 {
     ldec_No* lista=NULL;
-    int num,x,i;
+    int num,x,i, elem;
     char resp;
 
     srand(time(NULL));
 
-    for(i=0; i<30; i++)
+    for(i=0; i<1000000; i++)
     {
         num = gera_aleatorio();
         lista = ldec_insereFim(lista,num);
@@ -125,4 +125,3 @@ int main()
     ldec_busca(lista,elem);
 
 }
-*/

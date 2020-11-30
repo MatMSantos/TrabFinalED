@@ -21,21 +21,15 @@ splay_PtNodo *splay_buscaInsere(splay_PtNodo *raiz, int key)
 	if(aux == NULL)
 		return raiz;
 	
-	while(1)
+	while(aux->esq != NULL)
 	{
 		if(key < aux->key)
-		{
-			if(aux->esq != NULL)
-				aux = aux->esq;
-			else return aux;
-		}
+			aux = aux->esq;
 		else
-		{
-			if(aux->dir != NULL)
-				aux = aux->dir;
-			else return aux;
-		}
+			aux = aux->dir;
 	}
+	
+	return aux;
 }
 
 // Função que busca um nodo com uma certa chave repassada.
@@ -77,6 +71,11 @@ splay_PtNodo *splay_splay(splay_PtNodo *nodo)
 	
 	splay_PtNodo *bisavo;
 	
+	printf("nodo->key = %d", nodo->key);
+	printf("nodo->dir = %p", nodo->dir);
+	printf("nodo->esq = %p", nodo->esq);
+	printf("nodo->pai = %p", nodo->pai);
+	
 	// Enquanto o nodo não for a nova raiz, ou seja, seu pai não é nulo!
 	while(nodo->pai != NULL)
 	{
@@ -101,11 +100,13 @@ splay_PtNodo *splay_splay(splay_PtNodo *nodo)
 			}
 			// ZAG
 			else
-			{				
+			{
 				// Atualizo o nodo do pai
 				nodo->pai->pai = nodo;
+				
+				// Atualizo o nodo à direita do pai
 				nodo->pai->dir = nodo->esq;
-								
+				
 				// Atualizo o nodo à esquerda do novo nodo
 				nodo->esq->pai = nodo->pai;
 				
@@ -235,9 +236,29 @@ splay_PtNodo *splay_insere(splay_PtNodo* raiz, int key)
 	// Criamos um novo nodo com a chave repassada
 	novo_nodo = splay_novoNodo(key);
 	
+	printf("raiz = %p\n", raiz);
+	
+	printf("key = %d", key);
+	
+	printf("novo_nodo->key = %d\n", novo_nodo->key);
+	printf("novo_nodo->dir = %p\n", novo_nodo->dir);
+	printf("novo_nodo->esq = %p\n", novo_nodo->esq);
+	printf("novo_nodo->pai = %p\n", novo_nodo->pai);
 	// Se a árvore Splay repassada não tiver elementos
-	if(raiz == NULL)
+	if(raiz != NULL)
+	{
+	}
+	else
+	{
 		return novo_nodo;
+	}
+	
+	printf("key = %d", key);
+	
+	printf("raiz->key = %p", raiz->key);
+	printf("raiz->dir = %p", raiz->dir);
+	printf("raiz->esq = %p", raiz->esq);
+	printf("raiz->pai = %p", raiz->pai);
 	
 	// Se a árvore tiver elementos, busca o último nodo
 	// antes da chave que estamos querendo inserir
@@ -249,9 +270,9 @@ splay_PtNodo *splay_insere(splay_PtNodo* raiz, int key)
 	if(aux->key > key)
 	{
 		aux->esq = novo_nodo;
-		aux->esq->pai = aux;
+		novo_nodo->pai = aux;
 		
-		return splay_splay(aux->dir);
+		return splay_splay(novo_nodo);
 	}
 	// Se este último nodo for menor ou igual a nossa chave,
 	// inserimos o novo nodo à direita e devolvemos
@@ -259,9 +280,9 @@ splay_PtNodo *splay_insere(splay_PtNodo* raiz, int key)
 	else
 	{
 		aux->dir = novo_nodo;
-		aux->dir->pai = aux;
+		novo_nodo->pai = aux;
 		
-		return splay_splay(aux->esq);
+		return splay_splay(novo_nodo);
 	}
 }
 
@@ -289,7 +310,6 @@ splay_PtNodo *splay_consulta(splay_PtNodo* raiz, int key)
 	return splay_splay(aux);
 }
 
-/*
 // Teste das funções Splay.
 // Para isso:
 //
@@ -299,19 +319,31 @@ splay_PtNodo *splay_consulta(splay_PtNodo* raiz, int key)
 int main(void)
 {
 	splay_PtNodo* arv = NULL;
-	splay_PtNodo* consulta = NULL;
+	//splay_PtNodo* consulta = NULL;
+	
+	printf("arv = %p\n", arv);
+	arv = splay_insere(arv, 18);
+	
+	printf("arv = %p\n", arv);
+	printf("\n");
+	printf("arv->key = %d\n", arv->key);
+	printf("arv->dir = %p\n", arv->dir);
+	printf("arv->esq = %p\n", arv->esq);
+	printf("arv->pai = %p\n", arv->pai);
+	printf("\n");
+	printf("arv = %p\n", arv);
 	
 	arv = splay_insere(arv, 30);
-	arv = splay_insere(arv, 10);
-	arv = splay_insere(arv, 20);
 	
-	consulta = splay_consulta(arv, 40);
+	//arv = splay_insere(arv, 10);
+	//arv = splay_insere(arv, 20);
 	
-	if ( consulta->key != 40)
-		printf("Achado\n");
-	else
-		printf("Não achado\n");
+	//consulta = splay_consulta(arv, 40);
+	
+	//if ( consulta->key != 40)
+		//printf("Achado\n");
+	//else
+		//printf("Não achado\n");
 	
 	free(arv);
 }
-*/
