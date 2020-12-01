@@ -4,6 +4,10 @@
 #include <stdlib.h>
 #include <time.h>
 
+
+// Variável global para contagem de comparações
+int g_cont = 0;
+
 // Cria um novo nó a ser inserido em uma LDEC
 ldec_No* ldec_criaNo(void)
 {
@@ -102,26 +106,42 @@ void ldec_imprimir(ldec_No* ptInit)
 // >> gcc ldec.c -o LDEC
 // >> ./LDEC
 
-int main()
+/*
+int main(void)
 {
-    ldec_No* lista=NULL;
-    int num,x,i, elem;
-    char resp;
+	int* d5000;
+	int i, j,vet[NUM_DADOS];
+	lde_No* lde = NULL;
 
-    srand(time(NULL));
+	printf("\nLDE: Números aleatórios, arquivo .rand\n");
+	salvaParaArquivo(NUM_DADOS, SEQ);
+	d5000 = carregaDeArquivo(NUM_DADOS, SEQ);
 
-    for(i=0; i<1000000; i++)
-    {
-        num = gera_aleatorio();
-        lista = ldec_insereFim(lista,num);
-    }
+	printf("\n");
+	for(i=0; i<NUM_DADOS; i++)
+	{
+		printf("%d ", d5000[i]);
+	}
+	printf("\n");
 
-    printf("Lista:");
-    ldec_imprimir(lista);
+	for (j=0; j<NUM_DADOS; j++)
+	{
+		lde = lde_insereFim(lde, d5000[j]);
+	}
 
-    printf("\n\nDigite o valor de procura:");
-    scanf("%d",&elem);
+	printf("\n");
+	lde_imprimir(lde);
 
-    ldec_busca(lista,elem);
+	printf("\n");
+	lde_busca(lde, d5000[1250]);
 
+	printf("\n\nNumero de comparacoes:%d", g_cont);
+
+	free(d5000);
+	free(lde);
+
+
+	printf("\n\nFechando o programa.\n\n");
+	return 0;
 }
+*/

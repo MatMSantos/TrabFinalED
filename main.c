@@ -12,6 +12,9 @@
 
 #define NUM_DADOS 5000
 
+// Variável global para contagem de comparações
+int g_cont = 0;
+
 int main(void)
 {
 	int *dNUM_DADOS;

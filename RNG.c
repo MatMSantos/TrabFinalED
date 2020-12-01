@@ -7,6 +7,12 @@
 #define SEQ  1
 #define RAND 0
 
+// Variável global para contagem de comparações
+int g_cont = 0;
+
+// Variável global para contagem de comparações
+int g_cont = 0;
+
 // Gera um número aleatório
 int gera_aleatorio(void)
 {
@@ -177,8 +183,8 @@ int* carregaDeArquivo(int numDados, int sorted)
 }
 
 // Para testes
-/*
 
+/*
 int main()
 {
 	int* resultados;
@@ -205,5 +211,4 @@ int main()
 	free(resultados);
 	return 0;
 }
-
 */

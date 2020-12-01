@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Variável global para contagem de comparações
+int g_cont = 0;
+
 // Cria um novo nodo a ser inserido em uma Splay
 splay_PtNodo* splay_novoNodo(int key)
 {

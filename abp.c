@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Variável global para contagem de comparações
+int g_cont = 0;
+
 // Cria um novo nodo em uma ABP
 abp_pNodoA* abp_novoNodo(abp_tipoinfo ch)
 {
